@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">
+}
+
+const {post} = Astro.props
+---
+
+<div class="mt-9 mb-9 rounded-lg shadow-lg">
+  <h2 class="text-3xl mb-4">{post.data.title}</h2>  
+</div>

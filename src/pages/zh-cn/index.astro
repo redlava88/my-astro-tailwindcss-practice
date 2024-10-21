@@ -1,0 +1,30 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import {formatDate} from "../../utils"
+import {getCollection} from "astro:content";
+
+const chinesePosts = await getCollection("zhblog")
+const {currentLocale} = Astro
+
+---
+
+<MainLayout>
+	<div class="mt-9 mb-9 rounded-lg">
+    <h1 class="text-3xl mb-4">我的主页</h1>
+  </div> 
+  <div class="mt-9 mb-9 rounded-lg shadow-lg">
+    <h1 class="text-3xl mb-4">我的文章</h1>  
+    {chinesePosts.map((post) => (
+      <div>
+        <div class="rounded-lg border py-2 mb-3">
+          <a href={`/${currentLocale}/blog/${encodeURI(post.id)}`} class="font-bold">Title: {post.data.title}</a>
+          <h3>{post.data.author}</h3>
+          <h3>postURL:{encodeURI(post.id)}</h3>
+          <p>{formatDate(post.data.pubDate)}</p>
+        </div>
+    </div>
+    ))}      
+  </div>
+
+  <div class="h-[3000px]"></div>
+</MainLayout>

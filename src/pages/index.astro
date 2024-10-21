@@ -1,0 +1,30 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "../utils";
+
+const allposts = await getCollection("enblog")
+
+---
+
+<MainLayout>	
+	<h1 class="text-6xl font-bold py-5">Astro Data Options</h1>
+	<!-- card 1 -->
+	<div class="mt-9 mb-9 rounded-lg shadow-lg">
+    <h1 class="text-3xl mb-4">My Posts</h1>  
+    {allposts.map((post) => (
+      <div>
+        <div class="rounded-lg border py-2 mb-3">
+          <a href={`/blog/${post.id}`} class="font-bold">Title: {post.data.title}</a>
+          <h3>{post.data.author}</h3>
+          <h3>PostID, {post.id}</h3>
+          <p>{formatDate(post.data.pubDate)}</p>
+        </div>
+    </div>
+    ))}      
+  </div>
+
+	<!-- temparory -->
+	 <div class="h-[2000px]"></div>
+	
+</MainLayout>
